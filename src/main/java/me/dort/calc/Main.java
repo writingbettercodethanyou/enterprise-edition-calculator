@@ -25,7 +25,7 @@ public class Main {
             String operator      = split[1];
 
             Answer<Double> answer = calculator.performCalculation(Double.parseDouble(firstOperand), Double.parseDouble(secondOperand), operator);
-            System.out.println(firstOperand + " " + " " + operator + " " + secondOperand + " = " + answer.getAnswer());
+            System.out.println(firstOperand + " " + operator + " " + secondOperand + " = " + answer.getAnswer());
         }
     }
 }
