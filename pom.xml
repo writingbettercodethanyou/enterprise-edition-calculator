@@ -52,7 +52,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>me.dort.calc.Calculator</mainClass>
+                            <mainClass>me.dort.calc.calculator.Calculator</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
