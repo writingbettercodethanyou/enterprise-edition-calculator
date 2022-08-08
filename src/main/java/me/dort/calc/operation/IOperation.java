@@ -1,7 +1,6 @@
 package me.dort.calc.operation;
 
-public interface IOperation<T> {
+import java.util.function.BiFunction;
 
-    T doOperation(T arg0, T arg1);
-
+public interface IOperation<T> extends BiFunction<T, T, T> {
 }

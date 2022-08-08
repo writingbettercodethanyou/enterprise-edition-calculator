@@ -1,10 +1,10 @@
 package me.dort.calc;
 
-import me.dort.calc.answer.AnswerImpl;
-import me.dort.calc.operation.add.AddImpl;
-import me.dort.calc.operation.modulo.ModuloImpl;
-import me.dort.calc.operation.multiply.MultiplyImpl;
-import me.dort.calc.operation.subtract.SubtractImpl;
+import me.dort.calc.answer.Answer;
+import me.dort.calc.operation.AddDoubleOperation;
+import me.dort.calc.operation.ModuloDoubleOperation;
+import me.dort.calc.operation.MultiplyDoubleOperation;
+import me.dort.calc.operation.SubtractDoubleOperation;
 import me.dort.calc.calculator.ICalculator;
 import me.dort.calc.operation.IOperation;
 
@@ -20,26 +20,27 @@ public class Calculator implements ICalculator  {
             if (read != null) {
                 String[] split = read.split(" ");
                 String first = split[0];
-                String operation = split[1];
+                String operatorString = split[1];
                 String second = split[2];
-                IOperation<Double> ioperation;
-                switch (operation) {
+                IOperation<Double> operation;
+                switch (operatorString) {
                     case "%":
-                        ioperation = new ModuloImpl();
+                        operation = new ModuloDoubleOperation();
                         break;
                     case "+":
-                        ioperation = new AddImpl();
+                        operation = new AddDoubleOperation();
                         break;
                     case "-":
-                        ioperation = new SubtractImpl();
+                        operation = new SubtractDoubleOperation();
                         break;
                     case "*":
-                        ioperation = new MultiplyImpl();
+                        operation = new MultiplyDoubleOperation();
                         break;
                     default:
                         throw new RuntimeException("Method not implemented!");
                 }
-                System.out.println(first + " " + " " + operation + " " + second + " " + "=" + " " + new AnswerImpl(ioperation.doOperation(Double.parseDouble(first), Double.parseDouble(second))).answer());
+                Answer<Double> answer = new Answer<>(operation.apply(Double.parseDouble(first), Double.parseDouble(second)));
+                System.out.println(first + " " + " " + operation + " " + second + " " + "=" + " " + answer.getAnswer());
             }
         }
     }
