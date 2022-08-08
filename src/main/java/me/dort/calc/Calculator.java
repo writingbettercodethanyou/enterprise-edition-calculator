@@ -1,12 +1,12 @@
 package me.dort.calc;
 
-import me.dort.calc.classes.answer.AnswerImpl;
-import me.dort.calc.classes.operation.add.AddImpl;
-import me.dort.calc.classes.operation.modulo.ModuloImpl;
-import me.dort.calc.classes.operation.multiply.MultiplyImpl;
-import me.dort.calc.classes.operation.subtract.SubtractImpl;
-import me.dort.calc.interfaces.calculator.ICalculator;
-import me.dort.calc.interfaces.operation.IOperation;
+import me.dort.calc.answer.AnswerImpl;
+import me.dort.calc.operation.add.AddImpl;
+import me.dort.calc.operation.modulo.ModuloImpl;
+import me.dort.calc.operation.multiply.MultiplyImpl;
+import me.dort.calc.operation.subtract.SubtractImpl;
+import me.dort.calc.calculator.ICalculator;
+import me.dort.calc.operation.IOperation;
 
 import java.io.BufferedReader;
 import java.io.IOException;
