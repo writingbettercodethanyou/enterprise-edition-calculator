@@ -1,6 +1,6 @@
 package me.dort.calc.operation;
 
-public class AddDoubleOperation implements IOperation<Double> {
+public class AddDoubleOperation implements IHomogeneousBinaryOperation<Double> {
 
     @Override
     public Double apply(Double arg0, Double arg1) {
