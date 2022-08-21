@@ -9,7 +9,7 @@ public enum Operator {
     MODULO('%'),
     EXPONENT('^'),
     GROUP_START('('),
-    GROUP_END('(');
+    GROUP_END(')');
 
     private final char representation;
 
