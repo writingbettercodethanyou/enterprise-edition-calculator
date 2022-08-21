@@ -1,4 +1,6 @@
-package me.dort.calc.lexer;
+package me.dort.calc.ast.lexer;
+
+import me.dort.calc.ast.Reader;
 
 import java.io.IOException;
 import java.util.ArrayList;

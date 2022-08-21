@@ -1,4 +1,4 @@
-package me.dort.calc.lexer;
+package me.dort.calc.ast;
 
 import java.io.EOFException;
 
