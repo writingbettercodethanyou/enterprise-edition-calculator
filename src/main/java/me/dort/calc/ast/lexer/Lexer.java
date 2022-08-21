@@ -8,22 +8,19 @@ import java.util.List;
 
 public final class Lexer extends Reader<Character> {
 
-    public static Iterable<Token> lex(String input) throws IOException {
-        return new Lexer(input).lex();
-    }
-
-    private Lexer(String input) {
-        super(input.chars().mapToObj(c -> (char) c).toArray(Character[]::new));
-    }
-
-    private Iterable<Token> lex() throws IOException {
+    public static Token[] lex(String input) throws IOException {
+        Lexer       lexer  = new Lexer(input.chars().mapToObj(c -> (char) c).toArray(Character[]::new));
         List<Token> tokens = new ArrayList<>();
 
         Token token;
-        while ((token = readToken()) != null)
+        while ((token = lexer.readToken()) != null)
             tokens.add(token);
 
-        return tokens;
+        return tokens.toArray(Token[]::new);
+    }
+
+    private Lexer(Character[] characters) {
+        super(characters);
     }
 
     private Token readToken() throws IOException {
