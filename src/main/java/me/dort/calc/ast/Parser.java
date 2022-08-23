@@ -1,5 +1,6 @@
 package me.dort.calc.ast;
 
+import me.dort.calc.ast.binary.*;
 import me.dort.calc.ast.lexer.*;
 
 import java.io.IOException;
@@ -36,12 +37,12 @@ public class Parser extends Reader<Token> {
 
             Expression firstOperand = operand;
             operand = switch (actualOperator) {
-                case ADD -> () -> firstOperand.evaluate() + secondOperand.evaluate();
-                case SUBTRACT -> () -> firstOperand.evaluate() - secondOperand.evaluate();
-                case MULTIPLY -> () -> firstOperand.evaluate() * secondOperand.evaluate();
-                case DIVIDE -> () -> firstOperand.evaluate() / secondOperand.evaluate();
-                case MODULO -> () -> firstOperand.evaluate() % secondOperand.evaluate();
-                case EXPONENT -> () -> Math.pow(firstOperand.evaluate(), secondOperand.evaluate());
+                case ADD -> new AddExpression(firstOperand, secondOperand);
+                case SUBTRACT -> new SubtractExpression(firstOperand, secondOperand);
+                case MULTIPLY -> new MultiplyExpression(firstOperand, secondOperand);
+                case DIVIDE -> new DivideExpression(firstOperand, secondOperand);
+                case MODULO -> new ModuloExpression(firstOperand, secondOperand);
+                case EXPONENT -> new ExponentExpression(firstOperand, secondOperand);
                 default -> throw new UnsupportedOperationException("operator not supported yet");
             };
         }
