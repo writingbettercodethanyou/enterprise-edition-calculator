@@ -1,9 +1,15 @@
 package me.dort.calc.ast.binary;
 
-public class ModuloDoubleOperation implements IHomogeneousBinaryOperation<Double> {
+import me.dort.calc.ast.Expression;
+
+public class ModuloDoubleOperation extends BinaryOperation {
+
+    public ModuloDoubleOperation(Expression firstOperand, Expression secondOperand) {
+        super(firstOperand, secondOperand);
+    }
 
     @Override
-    public Double apply(Double arg0, Double arg1) {
-        return arg0 % arg1;
+    public double evaluate() {
+        return firstOperand.evaluate() % secondOperand.evaluate();
     }
 }
