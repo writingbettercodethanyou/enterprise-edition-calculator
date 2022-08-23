@@ -1,7 +1,7 @@
 package me.dort.calc.calculator;
 
 import me.dort.calc.answer.Answer;
-import me.dort.calc.operation.*;
+import me.dort.calc.ast.binary.*;
 
 public class Calculator implements ICalculator {
 

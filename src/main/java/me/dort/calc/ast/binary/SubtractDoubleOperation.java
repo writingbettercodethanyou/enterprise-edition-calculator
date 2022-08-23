@@ -1,4 +1,4 @@
-package me.dort.calc.operation;
+package me.dort.calc.ast.binary;
 
 public class SubtractDoubleOperation implements IHomogeneousBinaryOperation<Double> {
 
