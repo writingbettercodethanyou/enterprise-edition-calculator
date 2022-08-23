@@ -2,9 +2,9 @@ package me.dort.calc.ast.binary;
 
 import me.dort.calc.ast.Expression;
 
-public class MultiplyDoubleOperation extends BinaryOperation {
+public class MultiplyExpression extends BinaryExpression {
 
-    public MultiplyDoubleOperation(Expression firstOperand, Expression secondOperand) {
+    public MultiplyExpression(Expression firstOperand, Expression secondOperand) {
         super(firstOperand, secondOperand);
     }
 

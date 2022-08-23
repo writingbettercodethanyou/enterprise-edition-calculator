@@ -7,22 +7,22 @@ public class Calculator implements ICalculator {
 
     @Override
     public Answer<Double> performCalculation(double firstOperand, double secondOperand, String operator) {
-        BinaryOperation operation;
+        BinaryExpression operation;
         switch (operator) {
             case "%":
-                operation = new ModuloDoubleOperation(() -> firstOperand, () -> secondOperand);
+                operation = new ModuloExpression(() -> firstOperand, () -> secondOperand);
                 break;
             case "+":
-                operation = new AddDoubleOperation(() -> firstOperand, () -> secondOperand);
+                operation = new AddExpression(() -> firstOperand, () -> secondOperand);
                 break;
             case "-":
-                operation = new SubtractDoubleOperation(() -> firstOperand, () -> secondOperand);
+                operation = new SubtractExpression(() -> firstOperand, () -> secondOperand);
                 break;
             case "*":
-                operation = new MultiplyDoubleOperation(() -> firstOperand, () -> secondOperand);
+                operation = new MultiplyExpression(() -> firstOperand, () -> secondOperand);
                 break;
             case "/":
-                operation = new DivideDoubleOperation(() -> firstOperand, () -> secondOperand);
+                operation = new DivideExpression(() -> firstOperand, () -> secondOperand);
                 break;
             default:
                 throw new RuntimeException("Method not implemented!");

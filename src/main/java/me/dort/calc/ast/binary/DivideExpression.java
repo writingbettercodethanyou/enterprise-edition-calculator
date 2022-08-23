@@ -2,9 +2,9 @@ package me.dort.calc.ast.binary;
 
 import me.dort.calc.ast.Expression;
 
-public class DivideDoubleOperation extends BinaryOperation {
+public class DivideExpression extends BinaryExpression {
 
-    public DivideDoubleOperation(Expression firstOperand, Expression secondOperand) {
+    public DivideExpression(Expression firstOperand, Expression secondOperand) {
         super(firstOperand, secondOperand);
     }
 
