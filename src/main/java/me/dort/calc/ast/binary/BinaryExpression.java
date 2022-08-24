@@ -1,15 +1,23 @@
 package me.dort.calc.ast.binary;
 
 import me.dort.calc.ast.Expression;
+import me.dort.calc.ast.lexer.Operator;
 
 public abstract class BinaryExpression implements Expression {
+
+    private final Operator operator;
 
     protected Expression firstOperand;
     protected Expression secondOperand;
 
-    public BinaryExpression(Expression firstOperand, Expression secondOperand) {
+    public BinaryExpression(Operator operator, Expression firstOperand, Expression secondOperand) {
+        this.operator = operator;
         this.firstOperand = firstOperand;
         this.secondOperand = secondOperand;
+    }
+
+    public Operator getOperator() {
+        return operator;
     }
 
     public Expression getFirstOperand() {

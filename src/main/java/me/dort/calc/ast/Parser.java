@@ -17,7 +17,7 @@ public class Parser extends Reader<Token> {
 
     private Expression readExpression(boolean grouped) throws IOException {
 
-        Expression operand = readOperand();
+        Expression root = readOperand();
         while (canPeek() && !(grouped && peek() instanceof OperatorToken && ((OperatorToken) peek()).getOperation() == Operator.GROUP_END)) {
 
             OperatorToken operatorToken = (OperatorToken) next();
@@ -35,22 +35,34 @@ public class Parser extends Reader<Token> {
                 }
             }
 
-            Expression firstOperand = operand;
-            operand = switch (actualOperator) {
-                case ADD -> new AddExpression(firstOperand, secondOperand);
-                case SUBTRACT -> new SubtractExpression(firstOperand, secondOperand);
-                case MULTIPLY -> new MultiplyExpression(firstOperand, secondOperand);
-                case DIVIDE -> new DivideExpression(firstOperand, secondOperand);
-                case MODULO -> new ModuloExpression(firstOperand, secondOperand);
-                case EXPONENT -> new ExponentExpression(firstOperand, secondOperand);
+            BinaryExpression expression = switch (actualOperator) {
+                case ADD -> new AddExpression(null, secondOperand);
+                case SUBTRACT -> new SubtractExpression(null, secondOperand);
+                case MULTIPLY -> new MultiplyExpression(null, secondOperand);
+                case DIVIDE -> new DivideExpression(null, secondOperand);
+                case MODULO -> new ModuloExpression(null, secondOperand);
+                case EXPONENT -> new ExponentExpression(null, secondOperand);
                 default -> throw new UnsupportedOperationException("operator not supported yet");
             };
+
+            Expression parent = null, node = root;
+            while (node instanceof BinaryExpression && ((BinaryExpression) node).getOperator().getOrdinance() > actualOperator.getOrdinance())  {
+                parent = node;
+                node = ((BinaryExpression) node).getSecondOperand();
+            }
+
+            if (parent == null)
+                root = expression;
+            else
+                ((BinaryExpression) parent).setSecondOperand(expression);
+
+            expression.setFirstOperand(node);
         }
 
         if (grouped && !(canPeek() && peek() instanceof OperatorToken && ((OperatorToken) next()).getOperation() == Operator.GROUP_END))
             throw new IOException("expected GROUP_END token, but got nothing at token position [" + getPosition() + "]");
 
-        return operand;
+        return root;
     }
 
     private Expression readOperand() throws IOException {
@@ -65,7 +77,7 @@ public class Parser extends Reader<Token> {
 
             throw new IOException("a short expression must only be a numeric token or a grouped expression");
         } else if (token instanceof NumberToken)
-            return () -> ((NumberToken) token).getValue();
+            return new ConstantExpression(((NumberToken) token).getValue());
 
         throw new UnsupportedOperationException("token type not supported yet");
     }
