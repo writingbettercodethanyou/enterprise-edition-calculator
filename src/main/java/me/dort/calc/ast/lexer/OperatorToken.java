@@ -1,5 +1,7 @@
 package me.dort.calc.ast.lexer;
 
+import me.dort.calc.ast.Operator;
+
 public final class OperatorToken extends Token {
 
     private final Operator operation;

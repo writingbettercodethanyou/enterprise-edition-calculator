@@ -1,7 +1,7 @@
 package me.dort.calc.ast.binary;
 
 import me.dort.calc.ast.Expression;
-import me.dort.calc.ast.lexer.Operator;
+import me.dort.calc.ast.Operator;
 
 public abstract class BinaryExpression implements Expression {
 

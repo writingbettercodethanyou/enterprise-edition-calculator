@@ -1,5 +1,6 @@
 package me.dort.calc.ast.lexer;
 
+import me.dort.calc.ast.Operator;
 import me.dort.calc.ast.Reader;
 
 import java.io.IOException;

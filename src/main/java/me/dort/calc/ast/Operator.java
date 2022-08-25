@@ -1,4 +1,4 @@
-package me.dort.calc.ast.lexer;
+package me.dort.calc.ast;
 
 public enum Operator {
 
