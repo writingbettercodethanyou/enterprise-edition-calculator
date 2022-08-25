@@ -3,6 +3,7 @@ package me.dort.calc;
 import me.dort.calc.ast.ConstantDoubleExpression;
 import me.dort.calc.ast.ExpressionVisitor;
 import me.dort.calc.ast.BinaryExpression;
+import me.dort.calc.ast.GroupedExpression;
 
 public class EvaluateExpressionVisitor implements ExpressionVisitor<Double> {
 
@@ -24,5 +25,10 @@ public class EvaluateExpressionVisitor implements ExpressionVisitor<Double> {
     @Override
     public Double visitConstantDoubleExpression(ConstantDoubleExpression expression) {
         return expression.getValue();
+    }
+
+    @Override
+    public Double visitGroupedExpression(GroupedExpression expression) {
+        return expression.getExpression().accept(this);
     }
 }

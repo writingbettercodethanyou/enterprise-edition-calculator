@@ -63,7 +63,7 @@ public class Parser extends Reader<Token> {
 
         if (token instanceof SpecialToken) {
             if (((SpecialToken) token).getCharacter() == SpecialCharacter.GROUP_START)
-                return readExpression(true);
+                return new GroupedExpression(readExpression(true));
 
             throw new IOException("a short expression must only be a numeric token or a grouped expression");
         } else if (token instanceof NumberToken)
