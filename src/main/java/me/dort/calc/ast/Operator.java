@@ -1,21 +1,21 @@
 package me.dort.calc.ast;
 
+import me.dort.calc.ast.lexer.SpecialCharacter;
+
 public enum Operator {
 
-    ADD('+', 2),
-    SUBTRACT('-', 2),
-    MULTIPLY('*', 1),
-    DIVIDE('/', 1),
-    MODULO('%', 1),
-    EXPONENT('^', 0),
-    GROUP_START('(', -1),
-    GROUP_END(')', -1);
+    ADD(SpecialCharacter.ADD, 2),
+    SUBTRACT(SpecialCharacter.SUBTRACT, 2),
+    MULTIPLY(SpecialCharacter.MULTIPLY, 1),
+    DIVIDE(SpecialCharacter.DIVIDE, 1),
+    MODULO(SpecialCharacter.MODULO, 1),
+    EXPONENT(SpecialCharacter.EXPONENT, 0);
 
-    private final char representation;
+    private final SpecialCharacter character;
     private final int ordinance;
 
-    Operator(char representation, int ordinance) {
-        this.representation = representation;
+    Operator(SpecialCharacter character, int ordinance) {
+        this.character = character;
         this.ordinance = ordinance;
     }
 
@@ -25,6 +25,6 @@ public enum Operator {
 
     @Override
     public String toString() {
-        return Character.toString(representation);
+        return character.toString();
     }
 }

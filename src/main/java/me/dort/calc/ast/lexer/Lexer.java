@@ -1,6 +1,5 @@
 package me.dort.calc.ast.lexer;
 
-import me.dort.calc.ast.Operator;
 import me.dort.calc.ast.Reader;
 
 import java.io.IOException;
@@ -35,7 +34,7 @@ public final class Lexer extends Reader<Character> {
 
         return switch (peek()) {
             case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' -> readNumberToken();
-            case '+', '-', '*', '/', '%', '^', '(', ')' -> readOperatorToken();
+            case '+', '-', '*', '/', '%', '^', '(', ')' -> readSpecialToken();
             default -> throw new IOException("unreadable token at position [" + getPosition() + "]");
         };
     }
@@ -60,21 +59,21 @@ public final class Lexer extends Reader<Character> {
         return new NumberToken(s, getPosition() - s.length(), Double.parseDouble(s));
     }
 
-    private OperatorToken readOperatorToken() throws IOException {
+    private SpecialToken readSpecialToken() throws IOException {
         try {
-            Operator operator = switch (peek()) {
-                case '+' -> Operator.ADD;
-                case '-' -> Operator.SUBTRACT;
-                case '*' -> Operator.MULTIPLY;
-                case '/' -> Operator.DIVIDE;
-                case '%' -> Operator.MODULO;
-                case '^' -> Operator.EXPONENT;
-                case '(' -> Operator.GROUP_START;
-                case ')' -> Operator.GROUP_END;
-                default -> throw new IOException("expected operator character in operator token at position [" + getPosition() + "]");
+            SpecialCharacter character = switch (peek()) {
+                case '+' -> SpecialCharacter.ADD;
+                case '-' -> SpecialCharacter.SUBTRACT;
+                case '*' -> SpecialCharacter.MULTIPLY;
+                case '/' -> SpecialCharacter.DIVIDE;
+                case '%' -> SpecialCharacter.MODULO;
+                case '^' -> SpecialCharacter.EXPONENT;
+                case '(' -> SpecialCharacter.GROUP_START;
+                case ')' -> SpecialCharacter.GROUP_END;
+                default -> throw new IOException("expected special character token at position [" + getPosition() + "]");
             };
 
-            return new OperatorToken(operator.toString(), getPosition(), operator);
+            return new SpecialToken(character.toString(), getPosition(), character);
         } finally {
             skip();
         }

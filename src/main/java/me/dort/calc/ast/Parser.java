@@ -18,21 +18,42 @@ public class Parser extends Reader<Token> {
     private Expression readExpression(boolean grouped) throws IOException {
 
         Expression root = readOperand();
-        while (canPeek() && !(grouped && peek() instanceof OperatorToken && ((OperatorToken) peek()).getOperation() == Operator.GROUP_END)) {
+        while (canPeek() && !(grouped && peek() instanceof SpecialToken && ((SpecialToken) peek()).getCharacter() == SpecialCharacter.GROUP_END)) {
 
-            OperatorToken operatorToken = (OperatorToken) next();
+            SpecialToken specialToken = (SpecialToken) next();
             Operator      actualOperator;
             Expression    secondOperand;
-            switch (operatorToken.getOperation()) {
+            switch (specialToken.getCharacter()) {
                 case GROUP_START -> {
                     actualOperator = Operator.MULTIPLY;
                     secondOperand = readExpression(true);
                 }
                 case GROUP_END -> throw new IOException("unexpected GROUP_END token at token position [" + getPosition() + "]");
-                default -> {
-                    actualOperator = operatorToken.getOperation();
+                case ADD -> {
+                    actualOperator = Operator.ADD;
                     secondOperand = readOperand();
                 }
+                case SUBTRACT -> {
+                    actualOperator = Operator.SUBTRACT;
+                    secondOperand = readOperand();
+                }
+                case MULTIPLY -> {
+                    actualOperator = Operator.MULTIPLY;
+                    secondOperand = readOperand();
+                }
+                case DIVIDE -> {
+                    actualOperator = Operator.DIVIDE;
+                    secondOperand = readOperand();
+                }
+                case MODULO -> {
+                    actualOperator = Operator.MODULO;
+                    secondOperand = readOperand();
+                }
+                case EXPONENT -> {
+                    actualOperator = Operator.EXPONENT;
+                    secondOperand = readOperand();
+                }
+                default -> throw new UnsupportedOperationException("unsupported special character at token position [" + getPosition() + "]");
             }
 
             BinaryExpression expression = switch (actualOperator) {
@@ -42,7 +63,6 @@ public class Parser extends Reader<Token> {
                 case DIVIDE -> new DivideExpression(null, secondOperand);
                 case MODULO -> new ModuloExpression(null, secondOperand);
                 case EXPONENT -> new ExponentExpression(null, secondOperand);
-                default -> throw new UnsupportedOperationException("operator not supported yet");
             };
 
             Expression parent = null, node = root;
@@ -59,7 +79,7 @@ public class Parser extends Reader<Token> {
             expression.setFirstOperand(node);
         }
 
-        if (grouped && !(canPeek() && peek() instanceof OperatorToken && ((OperatorToken) next()).getOperation() == Operator.GROUP_END))
+        if (grouped && !(canPeek() && peek() instanceof SpecialToken && ((SpecialToken) next()).getCharacter() == SpecialCharacter.GROUP_END))
             throw new IOException("expected GROUP_END token, but got nothing at token position [" + getPosition() + "]");
 
         return root;
@@ -71,8 +91,8 @@ public class Parser extends Reader<Token> {
 
         Token token = next();
 
-        if (token instanceof OperatorToken) {
-            if (((OperatorToken) token).getOperation() == Operator.GROUP_START)
+        if (token instanceof SpecialToken) {
+            if (((SpecialToken) token).getCharacter() == SpecialCharacter.GROUP_START)
                 return readExpression(true);
 
             throw new IOException("a short expression must only be a numeric token or a grouped expression");
