@@ -1,6 +1,5 @@
 package me.dort.calc.ast;
 
-import me.dort.calc.ast.binary.*;
 import me.dort.calc.ast.lexer.*;
 
 import java.io.IOException;
@@ -42,14 +41,7 @@ public class Parser extends Reader<Token> {
                 node = nodeAsBinaryExpr.getSecondOperand();
             }
 
-            BinaryExpression expression = switch (actualOperator) {
-                case ADD -> new AddExpression(node, secondOperand);
-                case SUBTRACT -> new SubtractExpression(node, secondOperand);
-                case MULTIPLY -> new MultiplyExpression(node, secondOperand);
-                case DIVIDE -> new DivideExpression(node, secondOperand);
-                case MODULO -> new ModuloExpression(node, secondOperand);
-                case EXPONENT -> new ExponentExpression(node, secondOperand);
-            };
+            BinaryExpression expression = new BinaryExpression(actualOperator, node, secondOperand);
 
             if (parent == null)
                 root = expression;
@@ -75,7 +67,7 @@ public class Parser extends Reader<Token> {
 
             throw new IOException("a short expression must only be a numeric token or a grouped expression");
         } else if (token instanceof NumberToken)
-            return new ConstantExpression(((NumberToken) token).getValue());
+            return new ConstantDoubleExpression(((NumberToken) token).getValue());
 
         throw new UnsupportedOperationException("token type not supported yet");
     }

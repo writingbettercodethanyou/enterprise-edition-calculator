@@ -1,20 +1,14 @@
 package me.dort.calc.ast;
 
-public class ConstantExpression implements Expression {
+public abstract class ConstantExpression<T> implements Expression {
 
-    private final double number;
+    private final T value;
 
-    public ConstantExpression(double number) {
-        this.number = number;
+    public ConstantExpression(T number) {
+        this.value = number;
     }
 
-    @Override
-    public double evaluate() {
-        return number;
-    }
-
-    @Override
-    public String toString() {
-        return Double.toString(number);
+    public T getValue() {
+        return value;
     }
 }

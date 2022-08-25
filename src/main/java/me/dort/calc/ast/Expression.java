@@ -2,5 +2,5 @@ package me.dort.calc.ast;
 
 public interface Expression {
 
-    double evaluate();
+    <T> T accept(ExpressionVisitor<T> visitor);
 }

@@ -1,9 +1,6 @@
-package me.dort.calc.ast.binary;
+package me.dort.calc.ast;
 
-import me.dort.calc.ast.Expression;
-import me.dort.calc.ast.Operator;
-
-public abstract class BinaryExpression implements Expression {
+public class BinaryExpression implements Expression {
 
     private final Operator operator;
 
@@ -14,6 +11,11 @@ public abstract class BinaryExpression implements Expression {
         this.operator = operator;
         this.firstOperand = firstOperand;
         this.secondOperand = secondOperand;
+    }
+
+    @Override
+    public <T> T accept(ExpressionVisitor<T> visitor) {
+        return visitor.visitBinaryExpression(this);
     }
 
     public Operator getOperator() {

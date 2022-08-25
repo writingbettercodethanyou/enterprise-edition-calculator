@@ -18,9 +18,9 @@ public class Main {
                 break;
 
             Expression expression = Parser.parse(read);
-            System.out.print(expression);
+            System.out.print(expression.accept(new PrintExpressionVisitor()));
             System.out.print(" = ");
-            System.out.println(expression.evaluate());
+            System.out.println(expression.accept(new EvaluateExpressionVisitor()));
         }
     }
 }
