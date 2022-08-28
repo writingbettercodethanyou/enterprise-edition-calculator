@@ -1,5 +1,7 @@
 package me.dort.calc.ast;
 
+import me.dort.calc.ast.visitor.ExpressionVisitor;
+
 public class ConstantDoubleExpression extends ConstantExpression<Double> {
 
     public ConstantDoubleExpression(double value) {

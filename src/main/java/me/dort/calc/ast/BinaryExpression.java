@@ -1,5 +1,7 @@
 package me.dort.calc.ast;
 
+import me.dort.calc.ast.visitor.ExpressionVisitor;
+
 public class BinaryExpression implements Expression {
 
     private final Operator operator;

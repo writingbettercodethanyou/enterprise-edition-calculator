@@ -2,6 +2,8 @@ package me.dort.calc;
 
 import me.dort.calc.ast.Expression;
 import me.dort.calc.ast.Parser;
+import me.dort.calc.ast.visitor.EvaluateExpressionVisitor;
+import me.dort.calc.ast.visitor.PrintExpressionVisitor;
 
 import java.io.BufferedReader;
 import java.io.IOException;

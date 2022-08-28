@@ -1,7 +1,6 @@
-package me.dort.calc;
+package me.dort.calc.ast.visitor;
 
 import me.dort.calc.ast.ConstantDoubleExpression;
-import me.dort.calc.ast.ExpressionVisitor;
 import me.dort.calc.ast.BinaryExpression;
 import me.dort.calc.ast.GroupedExpression;
 
