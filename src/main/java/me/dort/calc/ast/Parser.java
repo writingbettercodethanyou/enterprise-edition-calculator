@@ -20,13 +20,13 @@ public class Parser extends Reader<Token> {
         while (canPeek() && !(grouped && peek() instanceof SpecialToken && ((SpecialToken) peek()).getCharacter() == SpecialCharacter.GROUP_END)) {
 
             SpecialToken specialToken   = (SpecialToken) next();
-            Operator     actualOperator = switch (specialToken.getCharacter()) {
-                case MULTIPLY, GROUP_START -> Operator.MULTIPLY;
-                case ADD -> Operator.ADD;
-                case SUBTRACT -> Operator.SUBTRACT;
-                case DIVIDE -> Operator.DIVIDE;
-                case MODULO -> Operator.MODULO;
-                case EXPONENT -> Operator.EXPONENT;
+            BinaryOperator actualOperator = switch (specialToken.getCharacter()) {
+                case MULTIPLY, GROUP_START -> BinaryOperator.MULTIPLY;
+                case ADD -> BinaryOperator.ADD;
+                case SUBTRACT -> BinaryOperator.SUBTRACT;
+                case DIVIDE -> BinaryOperator.DIVIDE;
+                case MODULO -> BinaryOperator.MODULO;
+                case EXPONENT -> BinaryOperator.EXPONENT;
                 case GROUP_END -> throw new IOException("unexpected GROUP_END token at token position [" + getPosition() + "]");
             };
 

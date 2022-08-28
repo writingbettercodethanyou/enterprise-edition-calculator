@@ -2,7 +2,7 @@ package me.dort.calc.ast;
 
 import me.dort.calc.ast.lexer.SpecialCharacter;
 
-public enum Operator {
+public enum BinaryOperator {
 
     ADD(SpecialCharacter.ADD, 2),
     SUBTRACT(SpecialCharacter.SUBTRACT, 2),
@@ -14,7 +14,7 @@ public enum Operator {
     private final SpecialCharacter character;
     private final int ordinance;
 
-    Operator(SpecialCharacter character, int ordinance) {
+    BinaryOperator(SpecialCharacter character, int ordinance) {
         this.character = character;
         this.ordinance = ordinance;
     }

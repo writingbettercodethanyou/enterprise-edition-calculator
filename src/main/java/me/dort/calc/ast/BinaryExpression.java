@@ -4,12 +4,12 @@ import me.dort.calc.ast.visitor.ExpressionVisitor;
 
 public class BinaryExpression implements Expression {
 
-    private final Operator operator;
+    private final BinaryOperator operator;
 
     protected Expression firstOperand;
     protected Expression secondOperand;
 
-    public BinaryExpression(Operator operator, Expression firstOperand, Expression secondOperand) {
+    public BinaryExpression(BinaryOperator operator, Expression firstOperand, Expression secondOperand) {
         this.operator = operator;
         this.firstOperand = firstOperand;
         this.secondOperand = secondOperand;
@@ -20,7 +20,7 @@ public class BinaryExpression implements Expression {
         return visitor.visitBinaryExpression(this);
     }
 
-    public Operator getOperator() {
+    public BinaryOperator getOperator() {
         return operator;
     }
 
